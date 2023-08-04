@@ -61,9 +61,13 @@ const Search = () => {
          
         }
       });
+      const gdp = await axios.get('http://localhost:9000/gdpAPI', {
+        params: {
+          country:response1.data[0]['country'],
+         
+        }
+      });
 
-
-      console.log(population.data);
       
       result = [
                 {
@@ -74,7 +78,9 @@ const Search = () => {
                 icon:response.data['weather'][0]['icon'],
                 USD:currencyRate.data['rates']['USD'],
                 EUR:currencyRate.data['rates']['EUR'],
-                ZAR:currencyRate.data['rates']['ZAR']
+                ZAR:currencyRate.data['rates']['ZAR'],
+                population:population.data[1][0].value,
+                gdp:gdp.data[1][0].value,
                 
                 }
              ];
@@ -175,13 +181,13 @@ const Search = () => {
                            </div>
                          
                             <dd></dd>
-                            <dt className="col-end-1 font-semibold text-gray-900">GDP</dt>
+                            <dt className="col-end-1 font-semibold text-gray-900">GDP: {activeOption?.gdp}</dt>
                             <dd className="truncate">
                               <a href="" className="text-indigo-600 underline">
                                 
                               </a>
                             </dd>
-                            <dt className="col-end-1 font-semibold text-gray-900">Population</dt>
+                            <dt className="col-end-1 font-semibold text-gray-900">Population: {activeOption?.population} </dt>
                             <dd className="truncate">
                               <a href="" className="text-indigo-600 underline">
                                 
